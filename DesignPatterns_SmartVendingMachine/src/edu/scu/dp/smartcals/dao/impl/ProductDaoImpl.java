@@ -87,11 +87,13 @@ public class ProductDaoImpl implements ProductDao {
 				product = ProductRowMapper.mapRow(rs);
 				
 			} else {
+				System.out.println("product id not found for "+id);
 				throw new EmptyResultException();
+				
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		} finally {
 			DBUtils.closeStatement(statement);
