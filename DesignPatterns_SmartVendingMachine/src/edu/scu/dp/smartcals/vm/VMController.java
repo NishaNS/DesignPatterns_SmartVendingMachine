@@ -63,25 +63,25 @@ public class VMController {
 	private LoginCheckPointStrategy loginStrategy;
 
 	private TabbedView tabbedView;
-	
+
 	private static SmartCardDao smctDao;
 	private InventoryDao invDao;
 	private OrderHistoryDao orderDao;
-	//private PaymentCreator pc;
-	//private PaymentProduct p;
+	// private PaymentCreator pc;
+	// private PaymentProduct p;
 	private SmartCardModelInterface smct;
 	private ProductModel product;
 	private InventoryModel invProduct;
 	private VendingMachineModel vmModel;
-	//private long cardNo;
 
+	// private long cardNo;
 
 	public VMController() {
 		// Code change done-Aparna
 		initialiseDao();
 
 		// code change- Aparna 22/8
-		
+
 		/*
 		 * // launch in following sequence - JFrame, SelectionView..etc if
 		 * (mainWindow == null) this.mainWindow = new VMClient(); if
@@ -100,7 +100,7 @@ public class VMController {
 		 * 
 		 * mainWindow.addPanels(vmSelectionView);
 		 */
-//Code change-Aparna 8/22
+		// Code change-Aparna 8/22
 	}
 
 	// aparna - initialize the components
@@ -144,8 +144,8 @@ public class VMController {
 
 		// start - Nisha - 8/20
 		nutriInfoDao = DaoFactory.getNutritionalInfoDao();
-		//end - Nisha
-//Sharadha
+		// end - Nisha
+		// Sharadha
 		smctDao = DaoFactory.getSmartCardDao();
 		invDao = DaoFactory.getInventoryDao();
 		orderDao = DaoFactory.getOrderHistoryDao();
@@ -209,8 +209,10 @@ public class VMController {
 
 		for (VendingMachineModel vmModel : vendingMachineModels) {
 
-			VendingMachineFactory vendingMachineFactory = VendingMachineFactory.getFactory(vmModel.getType());
-			VendingMachine vendingMachine = vendingMachineFactory.createVendingMachine(vmModel);
+			VendingMachineFactory vendingMachineFactory = VendingMachineFactory
+					.getFactory(vmModel.getType());
+			VendingMachine vendingMachine = vendingMachineFactory
+					.createVendingMachine(vmModel);
 			vendingMachines.add(vendingMachine);
 		}
 		return vendingMachines;
@@ -344,62 +346,69 @@ public class VMController {
 			e.printStackTrace();
 		}
 	}
-	
-	//Sharadha Ramaswamy
-	
-	public List<ProductModel> queryFilterProd(boolean chkGlutenFree, boolean chkHighProtein, boolean chkLowCal, boolean chkLowFat, boolean chkLowSodium)
-	{
+
+	// Sharadha Ramaswamy
+
+	public List<ProductModel> queryFilterProd(boolean chkGlutenFree,
+			boolean chkHighProtein, boolean chkLowCal, boolean chkLowFat,
+			boolean chkLowSodium) {
 		List<ProductModel> productModels = vmModel.getProductModels();
 		List<ProductModel> newProductModels = new ArrayList<>();
 		String smartTag = null;
-			for (ProductModel productModel : productModels){
-				try {
-					smartTag = nutriInfoDao.getSmartTag(productModel.getProductId());
-					if((smartTag.equals("gluten free") && chkGlutenFree)||((smartTag.equals("low calorie") && chkLowCal))||((smartTag.equals("high protein") && chkHighProtein))||((smartTag.equals("low fat") && chkLowFat))||((smartTag.equals("low sodium") && chkLowSodium))){
-						System.out.println(productModel.getProductId());
-						newProductModels.add(productModel);
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		for (ProductModel productModel : productModels) {
+			try {
+				smartTag = nutriInfoDao
+						.getSmartTag(productModel.getProductId());
+				if ((smartTag.equals("gluten free") && chkGlutenFree)
+						|| ((smartTag.equals("low calorie") && chkLowCal))
+						|| ((smartTag.equals("high protein") && chkHighProtein))
+						|| ((smartTag.equals("low fat") && chkLowFat))
+						|| ((smartTag.equals("low sodium") && chkLowSodium))) {
+					System.out.println(productModel.getProductId());
+					newProductModels.add(productModel);
 				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-	    return newProductModels;
+		return newProductModels;
 	}
-	
-	public List<ProductModel> queryCalFilterProd(int end){
+
+	public List<ProductModel> queryCalFilterProd(int end) {
 		List<ProductModel> productModels = vmModel.getProductModels();
 		List<ProductModel> newProductModels = new ArrayList<>();
 		String calorie;
-		
-		for (ProductModel productModel : productModels){
+
+		for (ProductModel productModel : productModels) {
 			try {
 				calorie = nutriInfoDao.getCalories(productModel.getProductId());
-				String val = calorie.substring(0,calorie.indexOf("cal"));
+				String val = calorie.substring(0, calorie.indexOf("cal"));
 				int calval = Integer.valueOf(val);
-				if(calval <= end)
-				{
-					newProductModels.add(productModel);				
+				if (calval <= end) {
+					newProductModels.add(productModel);
 				}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		}
-				
-       return newProductModels;	
+
+		return newProductModels;
 	}
 
-	public String getSmartCardInfo() throws SQLException, EmptyResultException{
-	    smct = smctDao.buySmartCard();
-		String text = "<html><body>Your Smart Card Number is:" +smct.getSmartCard()+ "<br> Your Balance is:"+smct.getBalance() + "</body></html>";
+	public String getSmartCardInfo() throws SQLException, EmptyResultException {
+		smct = smctDao.buySmartCard();
+		String text = "<html><body>Your Smart Card Number is:"
+				+ smct.getSmartCard() + "<br> Your Balance is:"
+				+ smct.getBalance() + "</body></html>";
 		return text;
-		
+
 	}
 
-	public void loadTheSmartCard(double amtPayable){
+	public void loadTheSmartCard(double amtPayable) {
 		try {
-			smctDao.loadSmartCard(smct.getSmartCard(),amtPayable);
+			smctDao.loadSmartCard(smct.getSmartCard(), amtPayable);
 		} catch (EmptyResultException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -409,19 +418,20 @@ public class VMController {
 		}
 	}
 
-	public SmartCardModelInterface checkCardValidation(String cardNum) throws SQLException, EmptyResultException{
+	public SmartCardModelInterface checkCardValidation(String cardNum)
+			throws SQLException, EmptyResultException {
 		long cardNo;
-		if(cardNum.isEmpty())
+		if (cardNum.isEmpty())
 			smct = new NullSmartCardModel();
-		else{
+		else {
 			cardNo = Long.parseLong(cardNum);
 			smct = smctDao.checkValidity(cardNo);
 		}
 		return smct;
 	}
-	
-	
-	public SmartCardModelInterface updateSmartCardBalance(long SmartCalCardNumber, double balance){
+
+	public SmartCardModelInterface updateSmartCardBalance(
+			long SmartCalCardNumber, double balance) {
 		try {
 			smct = smctDao.updateSmartCard(SmartCalCardNumber, balance);
 		} catch (SQLException e) {
@@ -430,118 +440,57 @@ public class VMController {
 		}
 		return smct;
 	}
-	public String getInventoryInfo(long prodId)
-	{
+
+	public String getInventoryInfo(long prodId) {
 		String data = null;
 		try {
 			product = productDao.getProductById(prodId);
 			invProduct = invDao.getProductById(prodId);
-			if(invProduct.getqty() > 0)
-			{
-				data = "<html><body>Product ID:" + product.getProductId() + "<br> Product Name:" + product.getProductName() + "<br> Product Price:" + product.getProductPrice() + "</body></html>";
-			}
-			else {
+			if (invProduct.getqty() > 0) {
+				data = "<html><body>Product ID:" + product.getProductId()
+						+ "<br> Product Name:" + product.getProductName()
+						+ "<br> Product Price:" + product.getProductPrice()
+						+ "</body></html>";
+			} else {
 				data = "Out Of Stock";
-			vendingMachineView.getVendingMachine().notifyOutOfStock(prodId,invProduct.getVendingMachineId());
-			try {
-				throw new OutOfStockException(prodId,invProduct.getVendingMachineId());
-			} catch (OutOfStockException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				//JOptionPane.showMessageDialog(null, e.getMessage());
-			}			
-		}
+				vendingMachineView.getVendingMachine().notifyOutOfStock(prodId,
+						invProduct.getVendingMachineId());
+
+			}
 		} catch (SQLException e) {
 			data = "Product Not Available";
-			e.printStackTrace();
-		}	
+			//e.printStackTrace();
+		}
 		return data;
 	}
-	
-	/*public boolean addInventoryData(int prodId,double price,int vendMachId,int qty)
-	{
-		boolean res = false;
-		try {
-			res = invDao.addInvDetails(prodId,price,vendMachId,qty);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return res;
-	}*/
-	
-	public void setProdPaymentPanel(ProductPaymentPanel prodPayPanel){
+
+	public void setProdPaymentPanel(ProductPaymentPanel prodPayPanel) {
 		prodPayPanel.setAmtPayable(invProduct);
 	}
-	
-	public void updateInvQty() throws OutOfStockException
-	{
-		//aparna--08/24
-		
-		long productId = invProduct.getProductId();
-		long vmId = invProduct.getVendingMachineId();
-		
-		
-		invProduct.setqty(invProduct.getqty() - 1); 
+
+	public void updateInvQty() throws OutOfStockException {
+
+		invProduct.setqty(invProduct.getqty() - 1);
 		System.out.println(invProduct.getqty());
 		try {
-			invDao.updateInventoryQty(invProduct.getqty(),invProduct.getProductId());
+			invDao.updateInventoryQty(invProduct.getqty(),
+					invProduct.getProductId());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*int existingQuantity = invProduct.getqty();
-		if(existingQuantity == 0) {
-			//notify outOfStock
-			vendingMachineView.getVendingMachine().notifyOutOfStock(productId,vmId);
-			throw new OutOfStockException(productId,vmId);
-		}*/
-		
-		
+
 	}
 
-	/*public boolean modifyInventory(long prodId,double price,int vendMachId,int qty)
-	{
-		boolean res = false;
+	public void updateOrder(String PaymentType, long SmartCardNo) {
 		try {
-			res = invDao.modifyInvDetails(prodId,price,vendMachId,qty);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return res;
-	}*/
-	/*public InventoryModel searchInventory(long prodId)
-	{
-		InventoryModel invProductData = null;
-		try {
-			invProductData = invDao.getProductById(prodId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return invProductData;
-	}*/
-	
-	/*public boolean deleteInventory(long prodId){
-		boolean status = false;
-		try {
-			status = invDao.removeProductById(prodId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return status;
-	}*/
-	public void updateOrder(String PaymentType,long SmartCardNo)
-	{
-		try {
-			orderDao.updateOrderTable(invProduct,PaymentType,SmartCardNo);
+			orderDao.updateOrderTable(invProduct, PaymentType, SmartCardNo);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * @param strategy
 	 * 
