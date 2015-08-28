@@ -29,12 +29,14 @@ import edu.scu.dp.smartcals.vm.Snack;
 import edu.scu.dp.smartcals.vm.VendingMachineFactory;
 
 /**
- * @author Aparna Ganesh Admin operations implementations
+ * @author Aparna Ganesh
+ * @author Nisha N 
+ * Admin operations implementations
  */
 public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 
 	/**
-	 * Code change-Aparna - 8/18 Added Alert to notify Monitoring Station View
+	 * Added Alert to notify Monitoring Station View
 	 */
 	private List<AlertListener> alertListeners;
 	
@@ -48,10 +50,10 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 	
 	private static AdminOperationsImpl INSTANCE;
 
-	// code change-Aparna 08/23
+	
 	private ProductDao productDao;
 	
-	//nisha - 8/24
+	
 	private NutritionalInfoDao nutriDao;
 
 	private AdminOperationsImpl() {
@@ -60,10 +62,10 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 		orderHistoryDao = DaoFactory.getOrderHistoryDao();
 		vendingMachineDao = DaoFactory.getVendingMachineDao();
 		invDao = DaoFactory.getInventoryDao();
-		// code change-Aparna 08/23
+	
 		productDao = DaoFactory.getProductDao();
 		
-		//nisha - 8/24
+	
 		nutriDao = DaoFactory.getNutritionalInfoDao();
 
 	}
@@ -93,11 +95,7 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 		}
 	}
 
-	// -------------code change-Aparna 8/18
-
-	
-	// code change-Aparna 08/23
-	/**
+		/**
 	 * Add new product-Admin
 	 * 
 	 * @throws SQLException
@@ -117,7 +115,7 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 		
 	}
 
-	//code change-Aparna -08/24 similar to Add product
+	
 	
 	@Override
 	public void updateProduct(Product product, long productId) throws SQLException {
@@ -137,7 +135,7 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 
 	/*
 	 * delete product-Admin
-	 * code change-Aparna 08/23
+	 *
 	 */
 	@Override
 	public void deleteProduct(long productId) throws AdminOperationsException {
@@ -154,7 +152,7 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 		
 	}
 	
-	//code change-Aparna 08/24
+
 	@Override
 	public ProductModel getProduct(long productId) throws AdminOperationsException {
 		ProductModel productModel = null;
@@ -162,13 +160,13 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 			productModel = productDao.getProductById(productId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new AdminOperationsException("Product "+ productId + " not found",e);
 		}
 		return productModel;
 	}
 	
-	//----------------------------------------------
+
 	@Override
 	public void updateOutOfStock(long vmId, long productId) {
 		// notify MonitoringStationView
@@ -226,7 +224,7 @@ public class AdminOperationsImpl implements AdminOperations, VMUpdateListener {
 		return products;
 	}
 
-	//nisha - 8/24
+
 	@Override
 	public NutritionalInfoModel searchNutriInfo(long productId) throws SQLException {
 		NutritionalInfoModel nutriInfo = nutriDao.getNutriInfo(productId);
