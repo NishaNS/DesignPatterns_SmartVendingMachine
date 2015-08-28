@@ -17,6 +17,7 @@ import edu.scu.dp.smartcals.vm.VendingMachine;
 
 /**
  * @author Aparna Ganesh
+ * @author Nisha N
  * Interface to define Admin operations
  */
 public interface AdminOperations {
@@ -57,8 +58,7 @@ public interface AdminOperations {
 	 */
 	public boolean deleteInventory(long prodId, long vmId);
 	
-	//code change-Aparna 08/24
-	
+		
 	/**
 	 * API to get Product data
 	 * @param productId
@@ -68,7 +68,6 @@ public interface AdminOperations {
 	public ProductModel getProduct(long productId) throws AdminOperationsException;
 	
 	
-	//code change-Aparna 08/24
 	
 	/**
 	 * API to register for alert notifications
@@ -82,7 +81,7 @@ public interface AdminOperations {
 	  */
 	 public void addInventoryUpdateListeners(InventoryUpdateListener invUpdateListener);
 	 
-	 //code change-Aparna 08/25
+	
 	 /**
 	  * API to update Product info( Price,category,Price)	
 	  * @param product
@@ -90,7 +89,7 @@ public interface AdminOperations {
 	  * @throws SQLException
 	  */
 	 public void updateProduct(Product product,long productId) throws SQLException;
-	//---------------------------------------------------
+	
 	/**
 	 * code change-Aparna 08/23
 	 * Add new product -By Admin
@@ -99,13 +98,13 @@ public interface AdminOperations {
 	 */
 	public void addNewProduct(Product product) throws SQLException;
 	
-	//code change-Aparna 08/23
+	
 	
 	public void deleteProduct(long productId) throws AdminOperationsException;
 	
 	public List<Product> getBestSellingProduct(long vmId) throws AdminOperationsException;
 	
-	//nisha - 8/24
+	
 	public NutritionalInfoModel searchNutriInfo(long productId) throws SQLException;
 	
 	public boolean addNewNutriInfo(ArrayList<String> dataValues) throws SQLException;
