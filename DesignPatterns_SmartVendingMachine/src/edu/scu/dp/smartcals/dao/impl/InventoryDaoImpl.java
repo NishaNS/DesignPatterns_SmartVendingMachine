@@ -87,14 +87,11 @@ public class InventoryDaoImpl implements InventoryDao {
 			EmptyResultException {
 		Connection connection = databaseFactory.getConnection();
 		String query;
-		int cnt;
 		try {
 			query = "update inventory set Quantity = '" + qty
 					+ "' where ProductID ='" + prodId + "'";
 			statement = connection.prepareStatement(query);
-			cnt = statement.executeUpdate();
-			if (cnt == 0)
-				System.out.println("Error");
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;

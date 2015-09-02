@@ -62,7 +62,7 @@ public class VMController {
 	private static SmartCardDao smctDao;
 	private InventoryDao invDao;
 	private OrderHistoryDao orderDao;
-	private SmartCardModelInterface smct;
+	private SmartCardModelInterface smtCardModInt;
 	private ProductModel product;
 	private InventoryModel invProduct;
 	private VendingMachineModel vmModel;
@@ -206,9 +206,6 @@ public class VMController {
 
 		List<ProductModel> productModels = vmModel.getProductModels();
 
-		System.out
-				.println("Product Model contains " + productModels.toString());
-
 		for (ProductModel productModel : productModels) {
 
 			switch (productModel.getCategory()) {
@@ -311,7 +308,6 @@ public class VMController {
 						|| ((smartTag.equals("high protein") && chkHighProtein))
 						|| ((smartTag.equals("low fat") && chkLowFat))
 						|| ((smartTag.equals("low sodium") && chkLowSodium))) {
-					System.out.println(productModel.getProductId());
 					newProductModels.add(productModel);
 				}
 			} catch (SQLException e) {
@@ -345,17 +341,17 @@ public class VMController {
 	}
 
 	public String getSmartCardInfo() throws SQLException, EmptyResultException {
-		smct = smctDao.buySmartCard();
+		smtCardModInt = smctDao.buySmartCard();
 		String text = "<html><body>Your Smart Card Number is:"
-				+ smct.getSmartCard() + "<br> Your Balance is:"
-				+ smct.getBalance() + "</body></html>";
+				+ smtCardModInt.getSmartCard() + "<br> Your Balance is:"
+				+ smtCardModInt.getBalance() + "</body></html>";
 		return text;
 
 	}
 
 	public void loadTheSmartCard(double amtPayable) {
 		try {
-			smctDao.loadSmartCard(smct.getSmartCard(), amtPayable);
+			smctDao.loadSmartCard(smtCardModInt.getSmartCard(), amtPayable);
 		} catch (EmptyResultException e) {
 
 			e.printStackTrace();
@@ -369,23 +365,23 @@ public class VMController {
 			throws SQLException, EmptyResultException {
 		long cardNo;
 		if (cardNum.isEmpty())
-			smct = new NullSmartCardModel();
+			smtCardModInt = new NullSmartCardModel();
 		else {
 			cardNo = Long.parseLong(cardNum);
-			smct = smctDao.checkValidity(cardNo);
+			smtCardModInt = smctDao.checkValidity(cardNo);
 		}
-		return smct;
+		return smtCardModInt;
 	}
 
 	public SmartCardModelInterface updateSmartCardBalance(
 			long SmartCalCardNumber, double balance) {
 		try {
-			smct = smctDao.updateSmartCard(SmartCalCardNumber, balance);
+			smtCardModInt = smctDao.updateSmartCard(SmartCalCardNumber, balance);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		return smct;
+		return smtCardModInt;
 	}
 
 	public String getInventoryInfo(long prodId) {
@@ -418,7 +414,6 @@ public class VMController {
 	public void updateInvQty() throws OutOfStockException {
 
 		invProduct.setqty(invProduct.getqty() - 1);
-		System.out.println(invProduct.getqty());
 		try {
 			invDao.updateInventoryQty(invProduct.getqty(),
 					invProduct.getProductId());

@@ -4,9 +4,7 @@
 package edu.scu.dp.smartcals.model;
 
 /**
- * 
  * @author Sharadha Ramaswamy
- *
  */
 public class SmartCardModel implements SmartCardModelInterface {
 

@@ -312,12 +312,12 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 				.setText("SmartCals Vending Machine");
 		parentView.getVMDetails_View().getLblCoinDispense()
 				.setText("Dispense Coin:");
-		PaymentCreator pc = new ConcretePaymentCreator();
-		PaymentProduct p = null;
+		PaymentCreator payCreate = new ConcretePaymentCreator();
+		PaymentProduct payProd = null;
 		if ((txtQuarters.getText().isEmpty())
 				&& (txtHalfDollar.getText().isEmpty())
 				&& (txtOneDollar.getText().isEmpty())) {
-			p = pc.makePayment("NullCoin", 0);
+			payProd = payCreate.makePayment("NullCoin", 0);
 		} else {
 			amtPayable = Double.parseDouble(txtAmtPayable.getText());
 			if (txtQuarters.getText().isEmpty()) {
@@ -338,10 +338,10 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 
 			amtPaying = quarters * 25 + halfDollar * 50 + oneDollar * 100;
 			amtPaying = amtPaying / 100;
-			p = pc.makePayment("Coin", 0);
-			p.setValues(amtPayable, amtPaying);
+			payProd = payCreate.makePayment("Coin", 0);
+			payProd.setValues(amtPayable, amtPaying);
 		}
-		if (p.getPaymentStatus()) {
+		if (payProd.getPaymentStatus()) {
 			try {
 				parentView.getVMController().updateInvQty();
 			} catch (OutOfStockException e) {
@@ -358,7 +358,7 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 					.getLblCoinDispense()
 					.setText(
 							"Dispense Coin:"
-									+ String.format("%.2f", p.getAmtToReturn()));
+									+ String.format("%.2f", payProd.getAmtToReturn()));
 			parentView.getVMDetails_View().setItemDispenserLabel();
 			parentView.getVMDetails_View().getTxtEnterProdID().setText("");
 		} else {
@@ -378,14 +378,14 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 				.setText("SmartCals Vending Machine");
 		parentView.getVMDetails_View().getLblCashDispense()
 				.setText("Dispense Cash:");
-		PaymentCreator pc = new ConcretePaymentCreator();
-		PaymentProduct p = null;
+		PaymentCreator payCreate = new ConcretePaymentCreator();
+		PaymentProduct payProd = null;
 
 		if ((txtAmtPayable.getText().isEmpty())
 				&& (txtOneDollarCash.getText().isEmpty())
 				&& (txtFiveDollar.getText().isEmpty())
 				&& (txtTenDollar.getText().isEmpty())) {
-			p = pc.makePayment("NullCash", 0);
+			payProd = payCreate.makePayment("NullCash", 0);
 		} else {
 			amtPayable = Double.parseDouble(txtAmtPayable.getText());
 			if (txtOneDollarCash.getText().isEmpty())
@@ -402,14 +402,14 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 				tenDollar = Double.parseDouble(txtTenDollar.getText());
 
 			amtPaying = oneDollar * 1 + fiveDollar * 5 + tenDollar * 10;
-			p = pc.makePayment("Cash", 0);
-			p.setValues(amtPayable, amtPaying);
+			payProd = payCreate.makePayment("Cash", 0);
+			payProd.setValues(amtPayable, amtPaying);
 		}
-		if (p.getPaymentStatus()) {
+		if (payProd.getPaymentStatus()) {
 			try {
 				parentView.getVMController().updateInvQty();
 			} catch (OutOfStockException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				JOptionPane.showMessageDialog(null, e.getMessage());
 				return;
 			}
@@ -422,7 +422,7 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 					.getLblCashDispense()
 					.setText(
 							"Dispense Cash:"
-									+ String.format("%.2f", p.getAmtToReturn()));
+									+ String.format("%.2f", payProd.getAmtToReturn()));
 			parentView.getVMDetails_View().setItemDispenserLabel();
 			parentView.getVMDetails_View().getTxtEnterProdID().setText("");
 		} else {
@@ -431,9 +431,9 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 	}
 
 	private void btnSmartCardActionPerformed(java.awt.event.ActionEvent evt) {
-		PaymentCreator pc = new ConcretePaymentCreator();
-		PaymentProduct p = null;
-		SmartCardModelInterface smct = null;
+		PaymentCreator payCreate = new ConcretePaymentCreator();
+		PaymentProduct payProd = null;
+		SmartCardModelInterface smtCardModInt = null;
 		double amtPayable;
 
 		parentView.getVMDetails_View().getLblDisplay()
@@ -442,21 +442,21 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 
 		amtPayable = Double.parseDouble(txtAmtPayable.getText());
 		if (txtSmartCard.getText().isEmpty())
-			p = pc.makePayment("NullSmartCard", 0);
+			payProd = payCreate.makePayment("NullSmartCard", 0);
 		else {
 			try {
-				smct = parentView.getVMController().checkCardValidation(
+				smtCardModInt = parentView.getVMController().checkCardValidation(
 						txtSmartCard.getText());
-				p = pc.makePayment("SmartCard", smct.getSmartCard());
-				p.setValues(amtPayable, smct.getBalance());
+				payProd = payCreate.makePayment("SmartCard", smtCardModInt.getSmartCard());
+				payProd.setValues(amtPayable, smtCardModInt.getBalance());
 			} catch (SQLException e) {
 
 				e.printStackTrace();
 			}
 		}
-		if (p.getPaymentStatus()) {
-			smct = parentView.getVMController().updateSmartCardBalance(
-					smct.getSmartCard(), smct.getBalance() - amtPayable);
+		if (payProd.getPaymentStatus()) {
+			smtCardModInt = parentView.getVMController().updateSmartCardBalance(
+					smtCardModInt.getSmartCard(), smtCardModInt.getBalance() - amtPayable);
 			try {
 				parentView.getVMController().updateInvQty();
 			} catch (OutOfStockException e) {
@@ -466,7 +466,7 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 				return;
 			}
 			parentView.getVMController().updateOrder("SmartCard",
-					smct.getSmartCard());
+					smtCardModInt.getSmartCard());
 			this.setVisible(false);
 			parentView.getVMDetails_View().getLblDisplay()
 					.setText("Payment Successful");
@@ -475,7 +475,7 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 					.getLblCardDispense()
 					.setText(
 							"Card Balance:"
-									+ String.format("%.2f", smct.getBalance()));
+									+ String.format("%.2f", smtCardModInt.getBalance()));
 			parentView.getVMDetails_View().setItemDispenserLabel();
 			parentView.getVMDetails_View().getTxtEnterProdID().setText("");
 		} else {

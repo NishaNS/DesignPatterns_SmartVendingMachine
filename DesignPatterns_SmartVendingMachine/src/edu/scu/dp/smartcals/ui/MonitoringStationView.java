@@ -1288,7 +1288,7 @@ public class MonitoringStationView extends javax.swing.JPanel implements
 					try {
 						admin.deleteProduct(productId);
 					} catch (AdminOperationsException e1) {
-							e1.printStackTrace();
+							//e1.printStackTrace();
 							JOptionPane.showMessageDialog(null, "Unable to delete product id "+productId);
 							return;
 					}

@@ -1,9 +1,7 @@
 package edu.scu.dp.smartcals.payment;
 
 /**
- * 
  * @author Sharadha Ramaswamy
- *
  */
 
 public class CashPayment implements PaymentProduct {

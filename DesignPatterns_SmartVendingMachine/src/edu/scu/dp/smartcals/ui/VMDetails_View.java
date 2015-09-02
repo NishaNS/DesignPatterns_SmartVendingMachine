@@ -320,17 +320,7 @@ public class VMDetails_View extends javax.swing.JPanel {
 		chkLowFat.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		chkLowFat.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 		chkLowFat.setName("chkLowFat"); // NOI18N
-		chkLowFat.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				chkLowFatActionPerformed(evt);
-			}
-
-			private void chkLowFatActionPerformed(ActionEvent evt) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
+	
 		chkLowSugar.setText("Low Sodium");
 		chkLowSugar.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 		chkLowSugar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -714,7 +704,6 @@ public class VMDetails_View extends javax.swing.JPanel {
 			parentView.getVMController().setProdPaymentPanel(prodPayPanel);
 			this.addDynamicChildPanels(prodPayPanel);
 		}
-
 	}
 
 	private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {
@@ -754,7 +743,6 @@ public class VMDetails_View extends javax.swing.JPanel {
 		String nutriInfo = parentView.getVMController().displayNutritionalInfo(
 				ProdID);
 		lblDisplay.setText(nutriInfo);
-
 	}
 
 	protected void btnBuySmartCardActionPerformed(ActionEvent evt) {
@@ -769,7 +757,6 @@ public class VMDetails_View extends javax.swing.JPanel {
 		lblDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		lblDisplay.setText(data);
 		lblDisplay.setName("lblDisplay");
-
 	}
 
 	public SmartCardPanel getSCPanel() {

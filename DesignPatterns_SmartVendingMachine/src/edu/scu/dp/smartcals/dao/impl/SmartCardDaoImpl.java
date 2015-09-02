@@ -27,7 +27,7 @@ public class SmartCardDaoImpl implements SmartCardDao {
 
 	private DatabaseFactory databaseFactory;
 	private PreparedStatement statement;
-	private SmartCardModelInterface sc;
+	private SmartCardModelInterface smtCardMod;
 	private String query;
 	private static SmartCardDao INSTANCE;
 
@@ -52,42 +52,31 @@ public class SmartCardDaoImpl implements SmartCardDao {
 	}
 
 	@Override
-	public SmartCardModel getSmartCardId(long id) throws SQLException,
-			EmptyResultException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public SmartCardModelInterface buySmartCard() throws SQLException,
 			EmptyResultException {
 
 		Connection connection = databaseFactory.getConnection();
-		long no = 0;
-		int cnt;
-
+		long smtCardNo = 0;
+		
 		try {
 			query = "insert into smartcalcarddetails(CardBalance) values(?)";
 			statement = connection.prepareStatement(query);
 			statement.setDouble(1, 0.0);
-			cnt = statement.executeUpdate();
-			if (cnt == 0)
-				System.out.println("Error");
-
+			statement.executeUpdate();
 			query = "select max(SmartCalCardNumber) from smartcalcarddetails";
 			statement = connection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				no = rs.getLong(1);
+				smtCardNo = rs.getLong(1);
 			}
 			rs.close();
 
 			query = "select * from smartcalcarddetails where SmartCalCardNumber = '"
-					+ no + "'";
+					+ smtCardNo + "'";
 			statement = connection.prepareStatement(query);
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				sc = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
+				smtCardMod = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
 						rs.getDouble("cardBalance"));
 			} else {
 				throw new EmptyResultException();
@@ -99,15 +88,7 @@ public class SmartCardDaoImpl implements SmartCardDao {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 		}
-		return sc;
-	}
-
-	private SmartCardModelInterface mapRow(ResultSet resultSet)
-			throws SQLException {
-		SmartCardModelInterface smt = new SmartCardModel(
-				resultSet.getLong("SmartCalCardNumber"),
-				resultSet.getDouble("cardBalance"));
-		return smt;
+		return smtCardMod;
 	}
 
 	@Override
@@ -141,7 +122,7 @@ public class SmartCardDaoImpl implements SmartCardDao {
 
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				sc = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
+				smtCardMod = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
 						rs.getDouble("cardBalance"));
 			} else {
 				throw new EmptyResultException();
@@ -153,20 +134,14 @@ public class SmartCardDaoImpl implements SmartCardDao {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 		}
-		return sc;
+		return smtCardMod;
 	}
 
-	@Override
-	public void checkBalance(SmartCardModel smtcd) throws SQLException {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public SmartCardModelInterface checkValidity(Long SmartCalCardNumber)
 			throws SQLException, EmptyResultException {
-		int count = 0;
-
+		
 		Connection connection = databaseFactory.getConnection();
 		try {
 			query = "select * from smartcalcarddetails where SmartCalCardNumber = '"
@@ -175,10 +150,10 @@ public class SmartCardDaoImpl implements SmartCardDao {
 			ResultSet rs = statement.executeQuery();
 
 			if (rs.next()) {
-				sc = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
+				smtCardMod = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
 						rs.getDouble("cardBalance"));
 			} else {
-				sc = new NullSmartCardModel();
+				smtCardMod = new NullSmartCardModel();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -188,7 +163,7 @@ public class SmartCardDaoImpl implements SmartCardDao {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 		}
-		return sc;
+		return smtCardMod;
 	}
 
 	@Override
@@ -209,7 +184,7 @@ public class SmartCardDaoImpl implements SmartCardDao {
 
 			rs = statement.executeQuery();
 			if (rs.next()) {
-				sc = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
+				smtCardMod = new SmartCardModel(rs.getLong("SmartCalCardNumber"),
 						rs.getDouble("cardBalance"));
 			} else {
 				throw new EmptyResultException();
@@ -222,6 +197,6 @@ public class SmartCardDaoImpl implements SmartCardDao {
 			databaseFactory.closeConnection();
 		}
 
-		return sc;
+		return smtCardMod;
 	}
 }
