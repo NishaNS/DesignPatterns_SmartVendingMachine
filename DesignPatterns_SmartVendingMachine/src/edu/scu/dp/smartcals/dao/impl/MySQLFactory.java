@@ -9,7 +9,8 @@ import edu.scu.dp.smartcals.constants.Constants;
 import edu.scu.dp.smartcals.dao.interfaces.DatabaseFactory;
 
 /**
- * MySQlConnectionFactory to establish connection to MySQL Database. 
+ * MySQlConnectionFactory to establish connection to MySQL Database.
+ * 
  * @author Aparna Ganesh
  *
  */
@@ -20,9 +21,9 @@ public class MySQLFactory extends DatabaseFactory {
 	private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
 
 	private Connection connection;
-	
+
 	private static MySQLFactory INSTANCE;
-	
+
 	private MySQLFactory(Properties properties) throws ClassNotFoundException {
 
 		hostname = properties.getProperty(Constants.DB_HOSTNAME);
@@ -33,21 +34,23 @@ public class MySQLFactory extends DatabaseFactory {
 		Class.forName(DRIVER_CLASS);
 
 	}
-	
+
 	/**
-	 * Returns SINGLE instance of MySQLFactory.Implementation of Singleton pattern.
-	 * There should be only one MYSQL factory for the entire application
+	 * Returns SINGLE instance of MySQLFactory.Implementation of Singleton
+	 * pattern. There should be only one MYSQL factory for the entire
+	 * application
+	 * 
 	 * @param properties
 	 * @return
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
-	public static DatabaseFactory getInstance(Properties properties) throws ClassNotFoundException {
+	public static DatabaseFactory getInstance(Properties properties)
+			throws ClassNotFoundException {
 		if (INSTANCE == null) {
 			INSTANCE = new MySQLFactory(properties);
 		}
 		return INSTANCE;
 	}
-
 
 	/**
 	 * Returns a Connection object if exists else creates a new connection
@@ -55,27 +58,22 @@ public class MySQLFactory extends DatabaseFactory {
 	@Override
 	public Connection getConnection() throws SQLException {
 
-		//if (connection == null) {
-
-			connection = DriverManager.getConnection(connectionURL, username,
-					password);
-		//}
+		connection = DriverManager.getConnection(connectionURL, username,
+				password);
 
 		return connection;
 	}
-	
+
 	public void closeConnection() {
-		if(connection != null) {
+		if (connection != null) {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			connection = null;
 		}
-		
+
 	}
 
-	
 }

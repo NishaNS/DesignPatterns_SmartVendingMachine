@@ -9,6 +9,6 @@ package edu.scu.dp.smartcals.constants;
  */
 public enum VMStatus {
 
-	ACTIVE,
+	ACTIVE, 
 	INACTIVE
 }

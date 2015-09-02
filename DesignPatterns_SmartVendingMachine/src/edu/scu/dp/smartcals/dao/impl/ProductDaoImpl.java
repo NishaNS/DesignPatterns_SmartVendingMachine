@@ -41,12 +41,10 @@ public class ProductDaoImpl implements ProductDao {
 		return INSTANCE;
 	}
 
-	/* code change-Aparna 08/23
-	 *delete product from database
-	 */
+	
 	@Override
 	public void deleteProduct(long productId) throws SQLException {
-	
+
 		PreparedStatement statement = null;
 		Connection connection = databaseFactory.getConnection();
 
@@ -55,7 +53,7 @@ public class ProductDaoImpl implements ProductDao {
 					.prepareStatement("delete from product where productID =?");
 			statement.setLong(1, productId);
 			int row = statement.executeUpdate();
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -63,9 +61,9 @@ public class ProductDaoImpl implements ProductDao {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 		}
-		
+
 	}
-	
+
 	/**
 	 * Returns a product for a given product ID. Connection is opened and closed
 	 * for every DB operation
@@ -85,15 +83,13 @@ public class ProductDaoImpl implements ProductDao {
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
 				product = ProductRowMapper.mapRow(rs);
-				
+
 			} else {
-				System.out.println("product id not found for "+id);
 				throw new EmptyResultException();
-				
+
 			}
 
 		} catch (SQLException e) {
-			//e.printStackTrace();
 			throw e;
 		} finally {
 			DBUtils.closeStatement(statement);
@@ -101,15 +97,15 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		return product;
 	}
-/**
- * Add product to database -Admin
- * code change-Aparna 08/23
- * @throws SQLException 
- */
+
+	/**
+	 * Add product to database -Admin code change-Aparna 08/23
+	 * 
+	 * @throws SQLException
+	 */
 	@Override
 	public void addProduct(ProductModel product) throws SQLException {
-		
-		
+
 		PreparedStatement statement = null;
 		Connection connection = databaseFactory.getConnection();
 
@@ -120,9 +116,8 @@ public class ProductDaoImpl implements ProductDao {
 			statement.setString(2, product.getProductName());
 			statement.setString(3, product.getCategory().toString());
 			statement.setDouble(4, product.getProductPrice());
-			
+
 			int rs = statement.executeUpdate();
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,21 +130,21 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public void updateProduct(ProductModel productModel,long productId) throws SQLException {
+	public void updateProduct(ProductModel productModel, long productId)
+			throws SQLException {
 		PreparedStatement statement = null;
 		Connection connection = databaseFactory.getConnection();
-		
+
 		try {
 			statement = connection
 					.prepareStatement("update product set ProductName = ?,Category = ?,Price = ? where ProductID = ?");
-			
+
 			statement.setString(1, productModel.getProductName());
 			statement.setString(2, productModel.getCategory().toString());
 			statement.setDouble(3, productModel.getProductPrice());
 			statement.setLong(4, productId);
-			
+
 			int rs = statement.executeUpdate();
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -158,7 +153,7 @@ public class ProductDaoImpl implements ProductDao {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 
-	}
+		}
 	}
 
 	@Override
@@ -172,10 +167,5 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
-	
-	
 
 }

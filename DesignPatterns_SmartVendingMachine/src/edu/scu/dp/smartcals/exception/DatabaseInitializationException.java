@@ -4,8 +4,7 @@
 package edu.scu.dp.smartcals.exception;
 
 /**
- * @author Aparna Ganesh
- * User Exception for Database initialization error.
+ * @author Aparna Ganesh User Exception for Database initialization error.
  */
 public class DatabaseInitializationException extends Exception {
 

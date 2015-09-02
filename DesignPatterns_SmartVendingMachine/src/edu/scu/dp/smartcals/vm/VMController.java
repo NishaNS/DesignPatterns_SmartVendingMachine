@@ -51,61 +51,30 @@ public class VMController {
 	private VendingMachineDao vendingMachineDao;
 	private ProductDao productDao;
 	private AdminLoginDao adminLoginDao;
-	// start - Nisha - 8/20
 	private NutritionalInfoDao nutriInfoDao;
-	// end - Nisha
-
 	private VMClient mainWindow;
 	private VMSelectionView vmSelectionView;
 	private VendingMachineView vendingMachineView;
 	private LoginView loginView;
 	private MonitoringStationView monitoringStationView;
 	private LoginCheckPointStrategy loginStrategy;
-
 	private TabbedView tabbedView;
-
 	private static SmartCardDao smctDao;
 	private InventoryDao invDao;
 	private OrderHistoryDao orderDao;
-	// private PaymentCreator pc;
-	// private PaymentProduct p;
 	private SmartCardModelInterface smct;
 	private ProductModel product;
 	private InventoryModel invProduct;
 	private VendingMachineModel vmModel;
 
-	// private long cardNo;
-
 	public VMController() {
-		// Code change done-Aparna
+
 		initialiseDao();
 
-		// code change- Aparna 22/8
-
-		/*
-		 * // launch in following sequence - JFrame, SelectionView..etc if
-		 * (mainWindow == null) this.mainWindow = new VMClient(); if
-		 * (vmSelectionView == null) this.vmSelectionView = new
-		 * VMSelectionView(this); if (vendingMachineView == null)
-		 * this.vendingMachineView = new VendingMachineView(this); if (loginView
-		 * == null) this.loginView = new LoginView(this); if
-		 * (monitoringStationView == null) this.monitoringStationView = new
-		 * MonitoringStationView(this);
-		 * 
-		 * //start - Nisha - 8/19 if(tabbedView == null) this.tabbedView = new
-		 * TabbedView(this); //end - Nisha - 8/19
-		 * 
-		 * // TODO load Selection View to run-Aparna // load first view from
-		 * this page only
-		 * 
-		 * mainWindow.addPanels(vmSelectionView);
-		 */
-		// Code change-Aparna 8/22
 	}
 
-	// aparna - initialize the components
 	private void initComponents() {
-		// launch in following sequence - JFrame, SelectionView..etc
+
 		if (mainWindow == null)
 			this.mainWindow = new VMClient();
 		if (vmSelectionView == null)
@@ -116,18 +85,16 @@ public class VMController {
 			this.loginView = new LoginView(this);
 		if (monitoringStationView == null)
 			this.monitoringStationView = new MonitoringStationView(this);
-
-		// start - Nisha - 8/19
 		if (tabbedView == null)
 			this.tabbedView = new TabbedView(this);
-		// end - Nisha - 8/19
 
+		// load first view
 		mainWindow.addPanels(vmSelectionView);
 
 	}
 
 	/**
-	 * code change-Aparna Method to initialize DB connection and Dao
+	 * Method to initialize DB connection and Dao
 	 */
 	private void initialiseDao() {
 		try {
@@ -141,11 +108,7 @@ public class VMController {
 		vendingMachineDao = DaoFactory.getVendingMachineDao();
 		productDao = DaoFactory.getProductDao();
 		adminLoginDao = DaoFactory.getAdminLoginDao();
-
-		// start - Nisha - 8/20
 		nutriInfoDao = DaoFactory.getNutritionalInfoDao();
-		// end - Nisha
-		// Sharadha
 		smctDao = DaoFactory.getSmartCardDao();
 		invDao = DaoFactory.getInventoryDao();
 		orderDao = DaoFactory.getOrderHistoryDao();
@@ -166,7 +129,6 @@ public class VMController {
 		return vendingMachineView;
 	}
 
-	// start - Nisha - 8/19 - new methods
 	public MonitoringStationView getMonitoringStationView() {
 		return monitoringStationView;
 	}
@@ -175,7 +137,6 @@ public class VMController {
 		return loginView;
 	}
 
-	// code change in progress- Aparna 21/8
 	public TabbedView getTabbedView() {
 		return tabbedView;
 	}
@@ -183,11 +144,6 @@ public class VMController {
 	public void setTabbedView(TabbedView tabbedView) {
 		this.tabbedView = tabbedView;
 	}
-
-	// -------------------------------------------------------------
-	// end - Nisha - 8/19
-
-	// $$$$$$ add getter methods for other views here $$$$$$
 
 	/**
 	 * Returns all the Vending Machines from Database to ViewAllVendingMachines
@@ -202,7 +158,6 @@ public class VMController {
 		try {
 			vendingMachineModels = vendingMachineDao.getAllVMBasicInfo();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Collections.emptyList();
 		}
@@ -280,7 +235,6 @@ public class VMController {
 		return vendingMachine;
 	}
 
-	// start - Nisha - 8/20 - display nutri info
 	/**
 	 * Display Nutritional Info on the view for selected product
 	 * 
@@ -298,8 +252,6 @@ public class VMController {
 		}
 		return nutriInfoModel.toString();
 	}
-
-	// end - Nisha - 8/20
 
 	/**
 	 * Authenticates the user login with database
@@ -321,14 +273,11 @@ public class VMController {
 				// update DB table with time of latest login
 				adminLoginDao.setLastLoginTime(username);
 
-				// start - Nisha - 8/19 - tabbed view
-
 				// load next view in tabbed view
 				tabbedView.getTabPane().removeTabAt(1);
 				tabbedView.getTabPane().addTab("Monitoring Station",
 						monitoringStationView);
 				tabbedView.getTabPane().setSelectedIndex(1);
-				// end - Nisha - 8/19
 
 			} else {
 
@@ -346,8 +295,6 @@ public class VMController {
 			e.printStackTrace();
 		}
 	}
-
-	// Sharadha Ramaswamy
 
 	public List<ProductModel> queryFilterProd(boolean chkGlutenFree,
 			boolean chkHighProtein, boolean chkLowCal, boolean chkLowFat,
@@ -368,7 +315,7 @@ public class VMController {
 					newProductModels.add(productModel);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 		}
@@ -389,7 +336,7 @@ public class VMController {
 					newProductModels.add(productModel);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 		}
@@ -410,10 +357,10 @@ public class VMController {
 		try {
 			smctDao.loadSmartCard(smct.getSmartCard(), amtPayable);
 		} catch (EmptyResultException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -435,7 +382,7 @@ public class VMController {
 		try {
 			smct = smctDao.updateSmartCard(SmartCalCardNumber, balance);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return smct;
@@ -459,7 +406,7 @@ public class VMController {
 			}
 		} catch (SQLException e) {
 			data = "Product Not Available";
-			//e.printStackTrace();
+
 		}
 		return data;
 	}
@@ -476,7 +423,7 @@ public class VMController {
 			invDao.updateInventoryQty(invProduct.getqty(),
 					invProduct.getProductId());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -486,7 +433,7 @@ public class VMController {
 		try {
 			orderDao.updateOrderTable(invProduct, PaymentType, SmartCardNo);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}

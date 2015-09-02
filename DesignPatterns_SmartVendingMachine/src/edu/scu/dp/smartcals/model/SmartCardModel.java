@@ -8,14 +8,12 @@ package edu.scu.dp.smartcals.model;
  * @author Sharadha Ramaswamy
  *
  */
-public class SmartCardModel implements SmartCardModelInterface{
+public class SmartCardModel implements SmartCardModelInterface {
 
-	//TODO add more product attributes here
 	private long smartCardId;
 	private double balance;
-	
-	public SmartCardModel(long smartCardId,double balance)
-	{
+
+	public SmartCardModel(long smartCardId, double balance) {
 		this.smartCardId = smartCardId;
 		this.balance = balance;
 	}
@@ -24,13 +22,11 @@ public class SmartCardModel implements SmartCardModelInterface{
 		return smartCardId;
 	}
 
-	public double getBalance()
-	{
+	public double getBalance() {
 		return balance;
 	}
-	
-	public boolean getValidity()
-	{
+
+	public boolean getValidity() {
 		return true;
 	}
 

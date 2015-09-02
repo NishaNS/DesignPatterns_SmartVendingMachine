@@ -7,19 +7,19 @@ import edu.scu.dp.smartcals.constants.InventoryStatus;
 
 /**
  * Model representing Vending Machine Inventory table
+ * 
  * @author Aparna Ganesh
  *
  */
 public class VendingMachineProductInventoryModel {
 
 	private long vendingMachineId;
-	
+
 	private long productId;
-	
+
 	private int quantity;
-	
+
 	private InventoryStatus status;
-	
 
 	public long getVendingMachineId() {
 		return vendingMachineId;

@@ -12,7 +12,7 @@ import edu.scu.dp.smartcals.model.AdminLoginModel;
  *         Strategy to implement security checkpoint when login attempt fails
  */
 
-// Strategy pattern
+
 public class FailedLoginAttemptStrategy implements LoginCheckPointStrategy {
 
 	private AdminLoginDao adminLoginDao;
@@ -29,7 +29,6 @@ public class FailedLoginAttemptStrategy implements LoginCheckPointStrategy {
 					.getLoginDetails(username);
 			if (adminLoginModel.getLoginAttempts() > FAILED_LOGIN_COUNT)
 				return false;
-			// $$$$$$ Add code to lock account in DB - add column
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

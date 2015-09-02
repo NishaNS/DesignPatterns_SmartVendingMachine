@@ -58,9 +58,6 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
 					adminLogin.resetModel();
 				mapRow(result);
 			} else {
-				System.out.println("Login attempt failed! Please try again.");
-				// clear any old model data
-				// adminLogin.resetModel();
 
 				// $$$$$$$$$ Code to write failed attempt to DB pending $$$$$$$$
 			}
@@ -75,7 +72,7 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
 		return adminLogin;
 	}
 
-	// start - Nisha - 8/17
+
 	/* (non-Javadoc)
 	 * When login successful, reset the Failed login count in DB, update the recent login timestamp in DB
 	 */
@@ -89,8 +86,7 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
 			statement.setString(1, username);
 			int updateStatus = statement.executeUpdate();
 			// $$$$$$$$$$$$$$ add logger fucntionality here $$$$$$$$$$$$
-			/*if (updateStatus != 1)
-				System.out.println("Could not udpate DB with login timestamp");*/
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -132,9 +128,6 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
 			statement.setString(1, username);
 			ResultSet result = statement.executeQuery();
 			while(result.next()){
-				//clear old result before populating
-				/*if(adminLogin != null)
-					adminLogin.resetModel();*/
 				//populate the AdminLogin Model
 				mapRow(result);
 			}
@@ -148,7 +141,6 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
 		}
 		return adminLogin;
 	}
-	// end - Nisha - 8/17
 
 	/**
 	 * Map the result set data to the model object
@@ -161,7 +153,6 @@ public class AdminLoginDaoImpl implements AdminLoginDao {
 		// set all attributes from DB result set
 		adminLogin = new AdminLoginModel();
 		adminLogin.setUsername(result.getString("UserName"));
-		//adminLogin.setPassword(result.getString("Password"));
 		adminLogin.setLoginAttempts(result.getInt("LoginAttempts"));
 		adminLogin.setVendingMachineID(result.getInt("VendingMachineID"));
 		adminLogin.setLocation(result.getString("Location"));

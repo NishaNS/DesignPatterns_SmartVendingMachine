@@ -71,11 +71,11 @@ public class RevenueTableModel extends DefaultTableModel {
 	 */
 	public void setAllSalesStats(String username) throws SQLException {
 		// get all VM data for a given user login
-		List<SalesSummaryModel> salesSummaryData = salesSummaryDao.getAllSalesStatistics(username);
+		List<SalesSummaryModel> salesSummaryData = salesSummaryDao
+				.getAllSalesStatistics(username);
 
-		// convert List of type SalesSUmmary to Vector of type Object and pass
-		// it as parameter for
-		// default table model
+		// convert List of type SalesSummary to Vector of type Object and pass
+		// it as parameter for default table model
 		for (SalesSummaryModel element : salesSummaryData) {
 			Vector<Object> row = new Vector<Object>();
 			row.addElement(element.getVendingMachineID());
@@ -83,8 +83,6 @@ public class RevenueTableModel extends DefaultTableModel {
 			row.addElement(element.getLastModifiedTime());
 			vectorSales.addElement(row);
 		}
-
-		// return vectorSales;
 	}
 
 	/**
@@ -96,11 +94,11 @@ public class RevenueTableModel extends DefaultTableModel {
 	 */
 	public void setVMSalesStats(long vendingMachineID) throws SQLException {
 		// get all VM data for a given user login
-		List<SalesSummaryModel> salesSummaryData = salesSummaryDao.getVMSalesStatistics(vendingMachineID);
+		List<SalesSummaryModel> salesSummaryData = salesSummaryDao
+				.getVMSalesStatistics(vendingMachineID);
 
 		// convert List of type SalesSUmmary to Vector of type Object and pass
-		// it as parameter for
-		// default table model
+		// it as parameter for default table model
 		for (SalesSummaryModel element : salesSummaryData) {
 			Vector<Object> row = new Vector<Object>();
 			row.addElement(element.getVendingMachineID());
@@ -108,8 +106,6 @@ public class RevenueTableModel extends DefaultTableModel {
 			row.addElement(element.getLastModifiedTime());
 			vectorSales.addElement(row);
 		}
-
-		// return vectorSales;
 	}
 
 	/**
@@ -118,7 +114,6 @@ public class RevenueTableModel extends DefaultTableModel {
 	public void resetModel() {
 		this.setRowCount(0);
 		vectorSales.clear();
-		
 	}
 
 }

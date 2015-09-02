@@ -6,42 +6,38 @@ package edu.scu.dp.smartcals.payment;
  *
  */
 
-
-public class CashPayment implements PaymentProduct{
+public class CashPayment implements PaymentProduct {
 	double amtPayable;
 	double amtToReturn;
 	double totValue;
- 	double fiveDollar;
+	double fiveDollar;
 	double tenDollar;
 	double oneDollar;
 	double amtPaying;
-	
 
 	@Override
-	public boolean getPaymentStatus(){
+	public boolean getPaymentStatus() {
 		if (amtPayable > amtPaying)
 			return false;
-		amtToReturn = amtPaying - amtPayable;	
+		amtToReturn = amtPaying - amtPayable;
 		return true;
 	}
 
 	@Override
 	public double getAmtToReturn() {
-		// TODO Auto-generated method stub
 		return amtToReturn;
 	}
 
 	@Override
 	public double getAmtPayable() {
-	    return amtPayable;
-		
+		return amtPayable;
+
 	}
+
 	@Override
-	public void setValues(double amtPayable,double amtPaying) {
+	public void setValues(double amtPayable, double amtPaying) {
 		this.amtPayable = amtPayable;
 		this.amtPaying = amtPaying;
 	}
-
-
 
 }

@@ -21,7 +21,7 @@ public class VendingMachineModel {
 	private String location;
 
 	private VMStatus status;
-	
+
 	private VMLocationType type;
 
 	private List<ProductModel> productModels;
@@ -73,10 +73,11 @@ public class VendingMachineModel {
 	}
 
 	/**
-	 * @param productModels the productModels to set
+	 * @param productModels
+	 *            the productModels to set
 	 */
 	public void setProductModels(List<ProductModel> productModels) {
 		this.productModels = productModels;
 	}
 
-	}
+}

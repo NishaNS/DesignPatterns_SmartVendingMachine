@@ -1,12 +1,14 @@
 package edu.scu.dp.smartcals.model;
 
+import edu.scu.dp.smartcals.constants.ProductCategory;
+
 /**
  * @author Sharadha Ramaswamy
  */
-import edu.scu.dp.smartcals.constants.ProductCategory;
+
 
 public class InventoryModel {
-	
+
 	private long productId;
 	private long VendingMachineId;
 	private long skuId;
@@ -14,7 +16,6 @@ public class InventoryModel {
 	private int qty;
 	private String inventoryStatus;
 
-	
 	public double getProductPrice() {
 		return productPrice;
 	}
@@ -54,7 +55,7 @@ public class InventoryModel {
 	public void setqty(int qty) {
 		this.qty = qty;
 	}
-	
+
 	public String getinventoryStatus() {
 		return inventoryStatus;
 	}
@@ -62,7 +63,5 @@ public class InventoryModel {
 	public void setinventoryStatus(String inventoryStatus) {
 		this.inventoryStatus = inventoryStatus;
 	}
-
-	
 
 }

@@ -17,10 +17,9 @@ public class OutOfStockAlert extends Alert {
 
 	@Override
 	public String getMessage() {
-		
-		return "Product "+getProperty(Constants.PRODUCT_ID_KEY)+" in VM "+ getProperty(Constants.VM_ID_KEY)+ " is out of Stock";
+
+		return "Product " + getProperty(Constants.PRODUCT_ID_KEY) + " in VM "
+				+ getProperty(Constants.VM_ID_KEY) + " is out of Stock";
 	}
-	
-	
 
 }
