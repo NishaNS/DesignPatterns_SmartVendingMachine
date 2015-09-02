@@ -8,12 +8,9 @@ package edu.scu.dp.smartcals.exception;
  *
  */
 public class AdminOperationsException extends Exception {
-	
-	/**
-	 * 
-	 */
-	public AdminOperationsException(String message,Throwable t) {
-		super(message,t);
+
+	public AdminOperationsException(String message, Throwable t) {
+		super(message, t);
 	}
-	
+
 }

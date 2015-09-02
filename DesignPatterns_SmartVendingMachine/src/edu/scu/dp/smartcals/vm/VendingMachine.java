@@ -41,7 +41,6 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 	/*
 	 * Implementing Observer pattern for Admin monitoring Holds
 	 * VMUpdateListeners to notify Admin when product is out of stock code
-	 * change -Aparna 8/18
 	 */
 
 	private List<VMUpdateListener> vmListeners = new ArrayList<>();
@@ -65,8 +64,6 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 		}
 
 	}
-
-	// ----------code change-Aparna 8/18
 
 	public List<Beverage> getBeverages() {
 		return beverages;
@@ -150,34 +147,37 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 		try {
 			Product product = getProduct(productId);
 			addProductToVendingMachine(product);
-		}
-		catch(Exception e) {
-			System.out.println("Ignoring incomplete inventory add notification for Product "+ productId);
+		} catch (Exception e) {
+			System.out
+					.println("Ignoring incomplete inventory add notification for Product "
+							+ productId);
 		}
 	}
 
-
 	@Override
 	public void handleModify(long productId) {
-		
+
 		try {
 			// Get product with the modified product info
 			Product product = getProduct(productId);
-			
-			//Get the appropriate list(Beverages | Candies | Snacks) based on the product category
+
+			// Get the appropriate list(Beverages | Candies | Snacks) based on
+			// the product category
 			List<? extends Product> productList = getProductList(product);
 
-			//Delete the old product from the list
+			// Delete the old product from the list
 			deleteProduct(productId, productList);
 
-			//Add the new product to the list
+			// Add the new product to the list
 			addProductToVendingMachine(product);
-		}
-		catch(AdminOperationsException e) {
-			System.out.println("Ignorning incomplete inventory modify notification " + productId);
-		}
-		catch(Exception e) {
-			System.out.println("Ignorning incomplete inventory modify notification " + productId);
+		} catch (AdminOperationsException e) {
+			System.out
+					.println("Ignorning incomplete inventory modify notification "
+							+ productId);
+		} catch (Exception e) {
+			System.out
+					.println("Ignorning incomplete inventory modify notification "
+							+ productId);
 		}
 
 	}
@@ -187,9 +187,10 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 		// Delete the product from the Vending machine
 		try {
 			deleteProductById(productId);
-		}
-		catch(Exception e) {
-			System.out.println("Ignoring incomplete inventory delete notification " + productId);
+		} catch (Exception e) {
+			System.out
+					.println("Ignoring incomplete inventory delete notification "
+							+ productId);
 		}
 
 	}
@@ -199,9 +200,12 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 	 */
 	private boolean deleteProductById(long productId) {
 
-		//Since product category is unknown, we need to try deleting from all product lists
-		//TODO Product category should be sent to this method.
-		return deleteProduct(productId, beverages) || deleteProduct(productId, snacks) || deleteProduct(productId, candies);
+		// Since product category is unknown, we need to try deleting from all
+		// product lists
+		// TODO Product category should be sent to this method.
+		return deleteProduct(productId, beverages)
+				|| deleteProduct(productId, snacks)
+				|| deleteProduct(productId, candies);
 
 	}
 
@@ -211,10 +215,13 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 			productModel = productDao.getProductById(productId);
 		} catch (EmptyResultException e) {
 			e.printStackTrace();
-			throw new AdminOperationsException("Product not found " + productId , e);
+			throw new AdminOperationsException(
+					"Product not found " + productId, e);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new AdminOperationsException("Error retrieving product info for " + productId + " from database", e);
+			throw new AdminOperationsException(
+					"Error retrieving product info for " + productId
+							+ " from database", e);
 		}
 		VendingMachineFactory vendingMachineFactory = VendingMachineFactory
 				.getFactory(locationType);
@@ -237,26 +244,24 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 
 	/**
 	 * Adds the product to appropriate product(Beverage | Candy | Snack) list
+	 * 
 	 * @param product
 	 */
 	private void addProductToVendingMachine(Product product) {
 
 		String category = product.getProdCategory();
 
-		if(category.equalsIgnoreCase("BEVERAGE")) {
+		if (category.equalsIgnoreCase("BEVERAGE")) {
 			beverages.add((Beverage) product);
 			Collections.sort(beverages);
-		}
-		else if(category.equalsIgnoreCase("SNACK")) {
+		} else if (category.equalsIgnoreCase("SNACK")) {
 			snacks.add((Snack) product);
 			Collections.sort(snacks);
-		}
-		else if(category.equalsIgnoreCase("CANDY")) {
+		} else if (category.equalsIgnoreCase("CANDY")) {
 			candies.add((Candy) product);
 			Collections.sort(candies);
-		}
-		else {
-			//do nothing
+		} else {
+			// do nothing
 		}
 
 	}
@@ -264,31 +269,28 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 	private List<? extends Product> getProductList(Product product) {
 		String category = product.getProdCategory();
 
-		if(category.equalsIgnoreCase("BEVERAGE")) {
+		if (category.equalsIgnoreCase("BEVERAGE")) {
 			return beverages;
-		}
-		else if(category.equalsIgnoreCase("SNACK")) {
+		} else if (category.equalsIgnoreCase("SNACK")) {
 			return snacks;
-		}
-		else if(category.equalsIgnoreCase("CANDY")) {
+		} else if (category.equalsIgnoreCase("CANDY")) {
 			return candies;
-		}
-		else {
-			//do nothing
+		} else {
+			// do nothing
 		}
 		return null;
 	}
 
-	private boolean deleteProduct(long productId, List<? extends Product> productList) {
+	private boolean deleteProduct(long productId,
+			List<? extends Product> productList) {
 		Iterator<? extends Product> itr = productList.iterator();
-		while(itr.hasNext()) {
-			if(itr.next().getProductID() == productId) {
+		while (itr.hasNext()) {
+			if (itr.next().getProductID() == productId) {
 				itr.remove();
 				return true;
 			}
 		}
 		return false;
 	}
-
 
 }

@@ -7,20 +7,19 @@ import edu.scu.dp.smartcals.constants.ProductCategory;
 
 /**
  * Product Model representing Product DB Table
+ * 
  * @author Aparna Ganesh
  *
  */
 public class ProductModel {
 
-
 	private long productId;
-	
+
 	private String productName;
-	
+
 	private ProductCategory category;
-	//code change done added price- getter n setter
-		private double productPrice;
-	
+	private double productPrice;
+
 	public ProductCategory getCategory() {
 		return category;
 	}
@@ -28,8 +27,6 @@ public class ProductModel {
 	public void setCategory(ProductCategory category) {
 		this.category = category;
 	}
-
-	
 
 	public double getProductPrice() {
 		return productPrice;
@@ -59,6 +56,6 @@ public class ProductModel {
 	public String toString() {
 		return "ProductModel [productId=" + productId + ", productName="
 				+ productName + ", productPrice=" + productPrice + "]";
-	} 
-	
+	}
+
 }

@@ -1,18 +1,11 @@
 package edu.scu.dp.smartcals.constants;
 
-
 /**
- * @author Aparna Ganesh
- * Enum to store Vending Machine Location Type
+ * @author Aparna Ganesh Enum to store Vending Machine Location Type
  */
 public enum VMLocationType {
 
-	SCHOOL,
+	SCHOOL, 
 	HOSPITAL
-	
-	
-	
-	
-	
-	
+
 }

@@ -4,6 +4,7 @@
 package edu.scu.dp.smartcals.admin;
 
 /**
+ * Interface for Alert Listeners
  * @author Aparna Ganesh
  *
  */

@@ -20,24 +20,27 @@ import edu.scu.dp.smartcals.exception.DatabaseInitializationException;
 
 /**
  * @author Aparna Ganesh
- * Class to initialize databse connection once for the entire application
+ * 
+ *         Class to initialize databse connection once for the entire
+ *         application
  */
 public class DaoFactory {
-	
+
 	private static DatabaseFactory databaseFactory;
-	
+
 	/**
-	 * This initializes the database factory. 
-	 * This method should be called only once for the entire program
+	 * This initializes the database factory. This method should be called only
+	 * once for the entire program
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	public static void initialize() throws DatabaseInitializationException  {
+	public static void initialize() throws DatabaseInitializationException {
 		FileInputStream f;
 		try {
 			f = new FileInputStream("db.properties");
 		} catch (FileNotFoundException e) {
-			
+
 			e.printStackTrace();
 			throw new DatabaseInitializationException(e.getMessage());
 		}
@@ -45,7 +48,7 @@ public class DaoFactory {
 		try {
 			properties.load(f);
 		} catch (IOException e1) {
-			
+
 			e1.printStackTrace();
 			throw new DatabaseInitializationException(e1.getMessage());
 		}
@@ -54,52 +57,48 @@ public class DaoFactory {
 			databaseFactory = DatabaseFactory.getFactory(properties,
 					DbType.valueOf(dbType));
 		} catch (ClassNotFoundException e) {
-		
+
 			e.printStackTrace();
 			throw new DatabaseInitializationException(e.getMessage());
 		}
-		
+
 	}
+
 	/**
 	 * Returns single instance of the dao
+	 * 
 	 * @return
 	 */
-	public static ProductDao getProductDao(){
+	public static ProductDao getProductDao() {
 		return ProductDaoImpl.getInstance(databaseFactory);
 	}
-	
+
 	public static VendingMachineDao getVendingMachineDao() {
 		return VendingMachineDaoImpl.getInstance(databaseFactory);
 	}
-	
-	public static NutritionalInfoDao getNutritionalInfoDao(){
+
+	public static NutritionalInfoDao getNutritionalInfoDao() {
 		return NutritionalInfoDaoImpl.getInstance(databaseFactory);
 	}
-	
-	public static AdminLoginDao getAdminLoginDao(){
+
+	public static AdminLoginDao getAdminLoginDao() {
 		return AdminLoginDaoImpl.getInstance(databaseFactory);
 	}
-	
 
 	public static OrderHistoryDao getOrderHistoryDao() {
 		return OrderHistoryDaoImpl.getInstance(databaseFactory);
 	}
 
-	//Sharadha
-	public static SmartCardDao getSmartCardDao(){
+	public static SmartCardDao getSmartCardDao() {
 		return SmartCardDaoImpl.getInstance(databaseFactory);
 	}
-	
-	public static InventoryDao getInventoryDao(){
+
+	public static InventoryDao getInventoryDao() {
 		return InventoryDaoImpl.getInstance(databaseFactory);
 	}
-	
-	//Nisha - 8/22
-	public static SalesSummaryDao getSalesSummaryDao(){
+
+	public static SalesSummaryDao getSalesSummaryDao() {
 		return SalesSummaryDaoImpl.getInstance(databaseFactory);
 	}
-	
-	
-
 
 }

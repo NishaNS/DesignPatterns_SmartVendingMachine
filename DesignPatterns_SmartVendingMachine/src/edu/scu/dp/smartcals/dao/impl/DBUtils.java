@@ -9,17 +9,18 @@ import java.sql.Statement;
 
 /**
  * DBUtils class to close the database connection
+ * 
  * @author Aparna Ganesh
  *
  */
 public class DBUtils {
 
-			public static void closeStatement(Statement statement) throws SQLException {
+	public static void closeStatement(Statement statement) throws SQLException {
 
-			if (statement != null) {
-				statement.close();
+		if (statement != null) {
+			statement.close();
 
-			}
+		}
 
 	}
 

@@ -7,7 +7,7 @@ import edu.scu.dp.smartcals.constants.Constants;
 
 /**
  * @author Aparna Ganesh
- *
+ * Notifies if the product is Out of Stock
  */
 public class OutOfStockAlert extends Alert {
 
@@ -17,10 +17,9 @@ public class OutOfStockAlert extends Alert {
 
 	@Override
 	public String getMessage() {
-		
-		return "Product "+getProperty(Constants.PRODUCT_ID_KEY)+" in VM "+ getProperty(Constants.VM_ID_KEY)+ " is out of Stock";
+
+		return "Product " + getProperty(Constants.PRODUCT_ID_KEY) + " in VM "
+				+ getProperty(Constants.VM_ID_KEY) + " is out of Stock";
 	}
-	
-	
 
 }

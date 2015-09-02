@@ -43,7 +43,7 @@ public class SalesSummaryDaoImpl implements SalesSummaryDao {
 	// get column names from table using result set meta data
 	@Override
 	public List<String> getColumnNames() throws SQLException {
-		
+
 		Connection connection = databaseFactory.getConnection();
 		List<String> columnNames = new ArrayList<String>();
 
@@ -59,20 +59,21 @@ public class SalesSummaryDaoImpl implements SalesSummaryDao {
 		return columnNames;
 	}
 
-	//return all stats for a given user login
+	// return all stats for a given user login
 	@Override
-	public List<SalesSummaryModel> getAllSalesStatistics(String username) throws SQLException {
-		
-		//clear old data
+	public List<SalesSummaryModel> getAllSalesStatistics(String username)
+			throws SQLException {
+
+		// clear old data
 		salesSummary.clear();
-		
+
 		try {
 			Connection connection = databaseFactory.getConnection();
 			statement = connection
 					.prepareStatement("Select * From SalesSummary "
 							+ "Where VendingMachineID IN ("
-								+ " Select VendingMachineId From AdministratorLogin"
-								+ " Where Username = ? )" );
+							+ " Select VendingMachineId From AdministratorLogin"
+							+ " Where Username = ? )");
 			statement.setString(1, username);
 			ResultSet result = statement.executeQuery();
 			while (result.next())
@@ -90,10 +91,10 @@ public class SalesSummaryDaoImpl implements SalesSummaryDao {
 	@Override
 	public List<SalesSummaryModel> getVMSalesStatistics(long vendingMachineId)
 			throws SQLException {
-		
-		//clear old data
+
+		// clear old data
 		salesSummary.clear();
-		
+
 		try {
 			Connection connection = databaseFactory.getConnection();
 

@@ -11,9 +11,6 @@ import java.util.List;
  */
 public class NutritionalInfoModel {
 
-	// Builder design Pattern to be applied
-	// only getter methods added so far ****** setter methods required for Admin
-
 	private final long productID;
 	private final String servingSize;
 	private final String calories;

@@ -7,6 +7,6 @@ package edu.scu.dp.smartcals.payment;
  */
 
 public interface PaymentCreator {
-	
-	public PaymentProduct makePayment(String type,long SmartCardNum);
+
+	public PaymentProduct makePayment(String type, long SmartCardNum);
 }

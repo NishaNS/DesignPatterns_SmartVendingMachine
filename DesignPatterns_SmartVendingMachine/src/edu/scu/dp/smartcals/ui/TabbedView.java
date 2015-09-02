@@ -20,12 +20,9 @@ public class TabbedView extends JPanel {
 	private VMController vmController;
 	private JTabbedPane tabPane;
 
-	// start - Nisha 8/19
 	private VendingMachineView vendingMachineView;
 	private MonitoringStationView monitoringStationView;
 	private LoginView loginView;
-
-	// end - Nisha
 
 	public TabbedView(VMController vmController) {
 
@@ -50,7 +47,6 @@ public class TabbedView extends JPanel {
 	 */
 	private void createTabView() {
 		tabPane = new JTabbedPane();
-		// the # of rows,cols the tabbed view should span
 		this.setLayout(new GridLayout(1, 1));
 		tabPane.setBackground(Color.YELLOW);
 

@@ -14,7 +14,7 @@ import edu.scu.dp.smartcals.model.ProductModel;
  *
  */
 public class ProductRowMapper {
-	
+
 	/**
 	 * Product Row Mapper Maps every row of Resultset to Java object
 	 * 
@@ -27,8 +27,8 @@ public class ProductRowMapper {
 		product.setProductId(resultSet.getLong("ProductID"));
 		product.setProductName(resultSet.getString("ProductName"));
 		product.setProductPrice(resultSet.getDouble("Price"));
-		product.setCategory(ProductCategory.valueOf(resultSet.getString("Category").toUpperCase()));
-		
+		product.setCategory(ProductCategory.valueOf(resultSet.getString(
+				"Category").toUpperCase()));
 
 		return product;
 	}

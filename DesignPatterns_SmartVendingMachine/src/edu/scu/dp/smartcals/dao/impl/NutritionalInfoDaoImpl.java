@@ -47,7 +47,7 @@ public class NutritionalInfoDaoImpl implements NutritionalInfoDao {
 
 	@Override
 	public NutritionalInfoModel getNutriInfo(long prodID) throws SQLException,
-	EmptyResultException {
+			EmptyResultException {
 
 		Connection connection = databaseFactory.getConnection();
 		try {
@@ -161,7 +161,6 @@ public class NutritionalInfoDaoImpl implements NutritionalInfoDao {
 		return true;
 	}
 
-	// maybe add method to get smart tags
 
 	/**
 	 * Map the result set data to the model object
@@ -175,37 +174,38 @@ public class NutritionalInfoDaoImpl implements NutritionalInfoDao {
 		nutriInfo = new NutritionalInfoModel.NutriBuilder(
 				result.getLong("ProductID"), result.getString("Calories"),
 				result.getString("SmartTag"))
-		.servingSize(result.getString("ServingSize"))
-		.totalFat(result.getString("TotalFat"))
-		.saturatedFat(result.getString("SaturatedFat"))
-		.transFat(result.getString("TransFat"))
-		.cholestrol(result.getString("Cholestrol"))
-		.sodium(result.getString("Sodium"))
-		.totalCarbs(result.getString("TotalCarbs"))
-		.dietaryFiber(result.getString("DietaryFiber"))
-		.sugars(result.getString("Sugars"))
-		.protein(result.getString("Protein"))
-		.iron(result.getString("Iron")).buildNutriInfo();
+				.servingSize(result.getString("ServingSize"))
+				.totalFat(result.getString("TotalFat"))
+				.saturatedFat(result.getString("SaturatedFat"))
+				.transFat(result.getString("TransFat"))
+				.cholestrol(result.getString("Cholestrol"))
+				.sodium(result.getString("Sodium"))
+				.totalCarbs(result.getString("TotalCarbs"))
+				.dietaryFiber(result.getString("DietaryFiber"))
+				.sugars(result.getString("Sugars"))
+				.protein(result.getString("Protein"))
+				.iron(result.getString("Iron")).buildNutriInfo();
 	}
 
 	@Override
-	public String getSmartTag(long prodID) throws SQLException, EmptyResultException {
+	public String getSmartTag(long prodID) throws SQLException,
+			EmptyResultException {
 		Connection connection = databaseFactory.getConnection();
 		String tag = "";
 		try {
 
-			statement = connection.prepareStatement("Select SmartTag From NutritionalInfo Where ProductID = ?");		
+			statement = connection
+					.prepareStatement("Select SmartTag From NutritionalInfo Where ProductID = ?");
 			statement.setLong(1, prodID);
 			ResultSet result = statement.executeQuery();
-			if(result.next()){
+			if (result.next()) {
 				tag = result.getString("SmartTag");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
-		}
-		finally{
+		} finally {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 		}
@@ -218,18 +218,18 @@ public class NutritionalInfoDaoImpl implements NutritionalInfoDao {
 		Connection connection = databaseFactory.getConnection();
 		String cal = "";
 		try {
-			statement = connection.prepareStatement("Select Calories From NutritionalInfo Where ProductID = ?");		
+			statement = connection
+					.prepareStatement("Select Calories From NutritionalInfo Where ProductID = ?");
 			statement.setLong(1, prodId);
 			ResultSet result = statement.executeQuery();
-			if(result.next()){
+			if (result.next()) {
 				cal = result.getString("Calories");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
-		}
-		finally{
+		} finally {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 		}

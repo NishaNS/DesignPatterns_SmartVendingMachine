@@ -86,7 +86,8 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
 	 * Returns a VM with all products for a given Id-Aparna
 	 */
 	@Override
-	public VendingMachineModel getVendingMachine(long vmId) throws EmptyResultException, SQLException {
+	public VendingMachineModel getVendingMachine(long vmId)
+			throws EmptyResultException, SQLException {
 
 		final String VM_SQL = "select * from vendingmachine where VendingMachineID = ?";
 		Connection connection = databaseFactory.getConnection();
@@ -101,7 +102,7 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
 					"No result found for Vending machine :" + vmId);
 		}
 
-	//Gets all products for a given VM Id
+		// Gets all products for a given VM Id
 		List<ProductModel> productModels = getProductsByVMId(vmId);
 		vmModel.setProductModels(productModels);
 
@@ -149,15 +150,14 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
 			statement = connection.prepareStatement(SQL);
 			statement.setLong(1, vmId);
 			ResultSet rs = statement.executeQuery();
-			if(rs.next()) {
-				result = VMLocationType.valueOf(rs.getString("type").toUpperCase());
+			if (rs.next()) {
+				result = VMLocationType.valueOf(rs.getString("type")
+						.toUpperCase());
 			}
-		}
-		catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
-		}
-		finally {
+		} finally {
 			DBUtils.closeStatement(statement);
 			databaseFactory.closeConnection();
 		}

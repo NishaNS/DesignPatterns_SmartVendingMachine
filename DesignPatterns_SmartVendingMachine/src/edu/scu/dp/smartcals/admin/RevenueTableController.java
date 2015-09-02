@@ -9,7 +9,7 @@ import edu.scu.dp.smartcals.exception.DatabaseInitializationException;
 import edu.scu.dp.smartcals.vm.VMController;
 
 /**
- * @author Nisha
+ * @author Nisha Narayanaswamy
  *
  */
 public class RevenueTableController {
@@ -24,7 +24,6 @@ public class RevenueTableController {
 		try {
 			revenueTableModel.setColumnNames();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -44,8 +43,8 @@ public class RevenueTableController {
 		if (option == "ALL")
 			try {
 				revenueTableModel.resetModel();
-				revenueTableModel.setAllSalesStats("admin");				
-				
+				revenueTableModel.setAllSalesStats("admin");
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -53,7 +52,7 @@ public class RevenueTableController {
 			try {
 				revenueTableModel.resetModel();
 				revenueTableModel.setVMSalesStats(Long.parseLong(option));
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

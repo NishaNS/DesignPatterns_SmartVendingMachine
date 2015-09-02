@@ -32,11 +32,11 @@ public interface NutritionalInfoDao {
 			throws SQLException;
 
 	public boolean deleteNutriInfo(long prodID) throws SQLException;
-	
-	public String getSmartTag(long prodID) throws SQLException, EmptyResultException;
-	
-	public String getCalories(long prodId) throws SQLException,EmptyResultException;
 
+	public String getSmartTag(long prodID) throws SQLException,
+			EmptyResultException;
+
+	public String getCalories(long prodId) throws SQLException,
+			EmptyResultException;
 
 }
-

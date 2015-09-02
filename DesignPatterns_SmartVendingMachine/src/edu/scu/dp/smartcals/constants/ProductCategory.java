@@ -1,4 +1,3 @@
-
 package edu.scu.dp.smartcals.constants;
 
 /**
@@ -6,7 +5,7 @@ package edu.scu.dp.smartcals.constants;
  *
  */
 public enum ProductCategory {
-BEVERAGE,
-SNACK,
-CANDY
+	BEVERAGE, 
+	SNACK, 
+	CANDY
 }
