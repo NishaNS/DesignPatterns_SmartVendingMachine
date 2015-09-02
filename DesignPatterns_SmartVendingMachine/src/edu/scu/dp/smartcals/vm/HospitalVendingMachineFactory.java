@@ -7,9 +7,10 @@ import edu.scu.dp.smartcals.model.ProductModel;
 import edu.scu.dp.smartcals.model.VendingMachineModel;
 
 /**
+ * @author Aparna Ganesh
  * Factory class to return Hospital Vending Machine
- * 
- * @author Aparna Ganesh No Implementation provided so far-TODO
+ * Future Implementation
+ *  
  */
 public class HospitalVendingMachineFactory extends VendingMachineFactory {
 
@@ -23,38 +24,19 @@ public class HospitalVendingMachineFactory extends VendingMachineFactory {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.scu.dp.smartcals.vm.VendingMachineFactory#createBreverage(edu.scu
-	 * .dp.smartcals.model.ProductModel)
-	 */
+	
 	@Override
 	public Beverage createBreverage(ProductModel productModel) {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.scu.dp.smartcals.vm.VendingMachineFactory#createCandy(edu.scu.dp.
-	 * smartcals.model.ProductModel)
-	 */
+	
 	@Override
 	public Candy createCandy(ProductModel productModel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.scu.dp.smartcals.vm.VendingMachineFactory#createSnack(edu.scu.dp.
-	 * smartcals.model.ProductModel)
-	 */
 	@Override
 	public Snack createSnack(ProductModel productModel) {
 		// TODO Auto-generated method stub

@@ -156,16 +156,6 @@ public class ProductDaoImpl implements ProductDao {
 		}
 	}
 
-	@Override
-	public List<ProductModel> getProductByCalorieRange(int low, int high) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ProductModel> getProductBySmartTag(List<String> smartTags) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

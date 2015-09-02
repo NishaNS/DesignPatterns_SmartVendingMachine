@@ -89,26 +89,7 @@ public abstract class VendingMachine implements InventoryUpdateListener {
 		this.snacks = snacks;
 	}
 
-	public void buyFood() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void payFood() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void getNutriInfo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void buySmartCard() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public long getVendingMachineId() {
 		return vendingMachineId;
 	}

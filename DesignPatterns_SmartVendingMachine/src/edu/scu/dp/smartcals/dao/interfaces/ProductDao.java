@@ -52,27 +52,4 @@ public interface ProductDao {
 	 */
 	public void deleteProduct(long productId) throws SQLException;
 
-	/**
-	 * List all products under given calorie range
-	 * 
-	 * @param low
-	 * @param high
-	 * @return
-	 * @throws SQLException
-	 */
-
-	public List<ProductModel> getProductByCalorieRange(int low, int high)
-			throws SQLException;
-
-	/**
-	 * List all products when searched by their smart tag
-	 * 
-	 * @param smartTags
-	 * @return
-	 * @throws SQLException
-	 */
-
-	public List<ProductModel> getProductBySmartTag(List<String> smartTags)
-			throws SQLException;
-
 }
