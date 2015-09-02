@@ -409,7 +409,7 @@ public class ProductPaymentPanel extends javax.swing.JPanel {
 			try {
 				parentView.getVMController().updateInvQty();
 			} catch (OutOfStockException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				JOptionPane.showMessageDialog(null, e.getMessage());
 				return;
 			}
