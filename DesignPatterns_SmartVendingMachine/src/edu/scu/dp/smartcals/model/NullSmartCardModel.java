@@ -1,9 +1,7 @@
 package edu.scu.dp.smartcals.model;
 
 /**
- * 
  * @author Sharadha Ramaswamy
- *
  */
 public class NullSmartCardModel implements SmartCardModelInterface {
 

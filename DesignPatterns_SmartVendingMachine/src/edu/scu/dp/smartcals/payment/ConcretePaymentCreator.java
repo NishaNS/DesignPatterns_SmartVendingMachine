@@ -11,21 +11,21 @@ package edu.scu.dp.smartcals.payment;
  *
  */
 public class ConcretePaymentCreator implements PaymentCreator {
-	private PaymentProduct pay;
+	private PaymentProduct paymentProd;
 
 	@Override
 	public PaymentProduct makePayment(String type, long SmartCardNum) {
 		if (type == "Coin")
-			pay = new CoinPayment();
+			paymentProd = new CoinPayment();
 		else if (type == "NullCoin")
-			pay = new NullCoinPayment();
+			paymentProd = new NullCoinPayment();
 		else if (type == "Cash")
-			pay = new CashPayment();
+			paymentProd = new CashPayment();
 		else if (type == "NullCash")
-			pay = new NullCashPayment();
+			paymentProd = new NullCashPayment();
 		else if (type == "SmartCard")
-			pay = new SmartCardPayment(SmartCardNum);
-		return pay;
+			paymentProd = new SmartCardPayment(SmartCardNum);
+		return paymentProd;
 	}
 
 }

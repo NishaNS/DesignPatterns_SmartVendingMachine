@@ -259,14 +259,14 @@ public class PaymentPanel extends javax.swing.JPanel {
 		parentView.getVMDetails_View().getLblCoinDispense()
 				.setText("Dispense Coin:");
 
-		PaymentCreator pc = new ConcretePaymentCreator();
+		PaymentCreator payCreate = new ConcretePaymentCreator();
 		PaymentProduct p = null;
 
 		if ((txtAmtPayable.getText().isEmpty())
 				|| ((txtOneDollarCash.getText().isEmpty())
 						&& (txtFiveDollar.getText().isEmpty()) && (txtTenDollar
 							.getText().isEmpty()))) {
-			p = pc.makePayment("NullCash", 0);
+			p = payCreate.makePayment("NullCash", 0);
 		} else {
 			amtPayable = Double.parseDouble(txtAmtPayable.getText());
 			if ((amtPayable == 10) || (amtPayable == 20) || (amtPayable == 50)) {
@@ -282,11 +282,11 @@ public class PaymentPanel extends javax.swing.JPanel {
 					tenDollar = 0;
 				else
 					tenDollar = Double.parseDouble(txtTenDollar.getText());
-				p = pc.makePayment("Cash", 0);
+				p = payCreate.makePayment("Cash", 0);
 				amtPaying = oneDollar * 1 + fiveDollar * 5 + tenDollar * 10;
 				p.setValues(amtPayable, amtPaying);
 			} else {
-				p = pc.makePayment("NullCash", 0);
+				p = payCreate.makePayment("NullCash", 0);
 			}
 		}
 		if (p.getPaymentStatus()) {
@@ -320,13 +320,13 @@ public class PaymentPanel extends javax.swing.JPanel {
 		parentView.getVMDetails_View().getLblCoinDispense()
 				.setText("Dispense Coin:");
 
-		PaymentCreator pc = new ConcretePaymentCreator();
-		PaymentProduct p = null;
+		PaymentCreator payCreate = new ConcretePaymentCreator();
+		PaymentProduct payProd = null;
 		if ((txtAmtPayable.getText().isEmpty())
 				|| ((txtQuarters.getText().isEmpty())
 						&& (txtHalfDollar.getText().isEmpty()) && (txtOneDollar
 							.getText().isEmpty()))) {
-			p = pc.makePayment("NullCoin", 0);
+			payProd = payCreate.makePayment("NullCoin", 0);
 		} else {
 			amtPayable = Double.parseDouble(txtAmtPayable.getText());
 			if ((amtPayable == 10) || (amtPayable == 20) || (amtPayable == 50)) {
@@ -342,16 +342,16 @@ public class PaymentPanel extends javax.swing.JPanel {
 					oneDollar = 0;
 				else
 					oneDollar = Double.parseDouble(txtOneDollar.getText());
-				p = pc.makePayment("Coin", 0);
+				payProd = payCreate.makePayment("Coin", 0);
 				amtPaying = quarters * 25 + halfDollar * 50 + oneDollar * 100;
 				amtPaying = amtPaying / 100;
-				p.setValues(amtPayable, amtPaying);
+				payProd.setValues(amtPayable, amtPaying);
 			} else {
-				p = pc.makePayment("NullCoin", 0);
+				payProd = payCreate.makePayment("NullCoin", 0);
 			}
 		}
-		if (p.getPaymentStatus()) {
-			parentView.getVMController().loadTheSmartCard(p.getAmtPayable());
+		if (payProd.getPaymentStatus()) {
+			parentView.getVMController().loadTheSmartCard(payProd.getAmtPayable());
 			this.setVisible(false);
 			parentView.getVMDetails_View().getLblDisplay()
 					.setText("Payment Successful");
@@ -360,7 +360,7 @@ public class PaymentPanel extends javax.swing.JPanel {
 					.getLblCoinDispense()
 					.setText(
 							"Dispense Coin:"
-									+ String.format("%.2f", p.getAmtToReturn()));
+									+ String.format("%.2f", payProd.getAmtToReturn()));
 			parentView.getVMDetails_View().getTxtEnterProdID().setText("");
 		} else {
 			lblCoinUnsucess.setText("Payment Invalid");
