@@ -10,8 +10,6 @@ import edu.scu.dp.smartcals.model.SmartCardModelInterface;
  */
 
 public interface SmartCardDao {
-	public SmartCardModel getSmartCardId(long id) throws SQLException,
-			EmptyResultException;
 
 	public SmartCardModelInterface buySmartCard() throws SQLException,
 			EmptyResultException;
@@ -21,8 +19,6 @@ public interface SmartCardDao {
 
 	public SmartCardModelInterface updateSmartCard(long SmartCalCardNumber,
 			double balance) throws SQLException, EmptyResultException;
-
-	public void checkBalance(SmartCardModel smtcd) throws SQLException;
 
 	public SmartCardModelInterface checkValidity(Long SmartCalCardNumber)
 			throws SQLException, EmptyResultException;

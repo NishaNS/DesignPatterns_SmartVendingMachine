@@ -7,7 +7,6 @@ import edu.scu.dp.smartcals.model.SmartCardModelInterface;
 import edu.scu.dp.smartcals.vm.VMController;
 
 /**
- *
  * @author Sharadha Ramaswamy
  */
 public class SmartCardPanel extends javax.swing.JPanel {

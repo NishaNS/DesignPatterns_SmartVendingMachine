@@ -3,9 +3,7 @@ package edu.scu.dp.smartcals.payment;
 import edu.scu.dp.smartcals.model.SmartCardModelInterface;
 
 /**
- * 
  * @author Sharadha Ramaswamy
- *
  */
 
 public class SmartCardPayment implements PaymentProduct {
