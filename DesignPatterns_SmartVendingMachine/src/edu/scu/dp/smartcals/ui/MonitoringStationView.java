@@ -332,7 +332,7 @@ public class MonitoringStationView extends javax.swing.JPanel implements
 		lblAlerts.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 		lblAlerts.setForeground(new java.awt.Color(255, 102, 102));
 		lblAlerts
-				.setText("All alerts from Observer shld be displayed here by appending text.");
+				.setText("");
 		lblAlerts.setName("Alerts"); // NOI18N
 
 		javax.swing.GroupLayout pnlAlertsLayout = new javax.swing.GroupLayout(
@@ -409,7 +409,7 @@ public class MonitoringStationView extends javax.swing.JPanel implements
 		add(pnlRevenueStat, gridBagConstraints);
 
 		pnlOtherStats.setBorder(javax.swing.BorderFactory.createTitledBorder(
-				null, "Other Statistics",
+				null, "Best Selling",
 				javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
 				javax.swing.border.TitledBorder.DEFAULT_POSITION,
 				new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -1298,7 +1298,7 @@ public class MonitoringStationView extends javax.swing.JPanel implements
 						
 					}
 					catch (AdminOperationsException e1) {
-							e1.printStackTrace();
+							//e1.printStackTrace();
 							JOptionPane.showMessageDialog(null, e1.getMessage());
 							return;
 					}
@@ -1366,7 +1366,7 @@ public class MonitoringStationView extends javax.swing.JPanel implements
 							return;
 					}
 					JOptionPane.showMessageDialog(null, "Product Deleted !");
-					txtProductID.setText("");
+					cleanPanelContents();
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Invalid entry");
