@@ -134,6 +134,8 @@ public class NutritionalInfoModel {
 		smartTag = nutriBuilder.smartTag;
 
 	}
+	
+	//Various methods to render data
 
 	@Override
 	public String toString() {
